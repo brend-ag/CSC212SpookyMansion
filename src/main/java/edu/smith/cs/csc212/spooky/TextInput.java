@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class TextInput {
+public class TextInput { //uses wordsplitter, helps make user input better
 	/**
 	 * The source of data for text input.
 	 */

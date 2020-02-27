@@ -13,7 +13,8 @@ public class Place {
 	/**
 	 * This is a list of places we can get to from this place.
 	 */
-	private List<Exit> exits;
+	private List<Exit> exits; //not exit from mansion, but fr current place!
+	private List<SecretExit> secretExits;
 	/**
 	 * This is the identifier of the place.
 	 */
@@ -22,11 +23,14 @@ public class Place {
 	 * What to tell the user about this place.
 	 */
 	private String description;
+
 	/**
 	 * Whether reaching this place ends the game.
 	 */
-	private boolean terminal;
+	private boolean terminal; //not passed to "constructor" spookymansion
+	//not visible outside file so don't have to do (..true, true) thing, just terminal thing so easier to read
 	
+	//public String action = words.get(0).toLowerCase().trim();
 	/**
 	 * Internal only constructor for Place. Use {@link #create(String, String)} or {@link #terminal(String, String)} instead.
 	 * @param id - the internal id of this place.
@@ -37,7 +41,8 @@ public class Place {
 		this.id = id;
 		this.description = description;
 		this.exits = new ArrayList<>();
-		this.terminal = terminal;
+		this.secretExits = new ArrayList<>();
+		this.terminal = terminal; //the // in my map!
 	}
 	
 	/**
@@ -47,13 +52,15 @@ public class Place {
 	public void addExit(Exit exit) {
 		this.exits.add(exit);
 	}
-	
+	public void addSecretExit(SecretExit secretExits) {
+		this.secretExits.add(secretExits);
+	}
 	/**
 	 * For gameplay, whether this place ends the game.
 	 * @return true if this is the end.
 	 */
 	public boolean isTerminalState() {
-		return this.terminal;
+		return this.terminal; //aka crypt or fall
 	}
 	
 	/**
@@ -79,12 +86,34 @@ public class Place {
 	public List<Exit> getVisibleExits() {
 		List<Exit> visible = new ArrayList<>();
 		for (Exit e : this.exits) {
+			//loops through each exit in the list exit
 			if (!e.isSecret()) {
-				visible.add(e);
+				  //if exit = true, since isSecr = assumed false
+				visible.add(e); //then add to the "visible" list of exists
 			}
 		}
-		return visible;
+		return visible; //return the list of "visible" exists
 	}
+	public List<SecretExit> getInvisibleExits() {
+		List<SecretExit> hidden = new ArrayList<>();
+		for (SecretExit  t: this.secretExits) {
+			//loops through each exit in the list exit
+			if (t.isSecret()) {
+				hidden.add(t);
+				
+			}
+		}
+		return hidden; 
+	} 
+	public void searchAllExits() {
+		//if (InteractiveFiction.runGame().action.equals("search")) {  //word = trigger
+			System.out.println("You look around for any other exits you could go through.");
+			for (Exit t: this.secretExits) {
+				t.search();
+				//System.out.println(t);
+				continue;
+			}
+		}
 	
 	/**
 	 * This is a terminal location (good or bad).
@@ -94,6 +123,7 @@ public class Place {
 	 */
 	public static Place terminal(String id, String description) {
 		return new Place(id, description, true);
+		//true bc it is a terminal, creates a new place that's a terminal
 	}
 	
 	/**
@@ -104,6 +134,7 @@ public class Place {
 	 */
 	public static Place create(String id, String description) {
 		return new Place(id, description, false);
+		//creates a place in general, not a terminal so false
 	}
 	
 	/**
@@ -123,9 +154,10 @@ public class Place {
 	/**
 	 * Whether this is the same place as another.
 	 */
+	
 	public boolean equals(Object other) {
-		if (other instanceof Place) {
-			return this.id.equals(((Place) other).id);
+		if (other instanceof Place) { //if it's a place as well
+			return this.id.equals(((Place) other).id); //make the id the same!
 		}
 		return false;
 	}
