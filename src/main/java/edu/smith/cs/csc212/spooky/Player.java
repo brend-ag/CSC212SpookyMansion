@@ -20,12 +20,8 @@ public class Player {
 	private String place;
 	private Set<String> visited = new HashSet<>();
 	private List<String> items = new ArrayList<>();
-//	private Set<String> visitedHallway = new HasSet<>
 	//set = set of id's the player has seen before
-	//set (self) bc UNIQUE! 
-	//i was gonna say only add fr one side etc, makes sense for situation, but i think that's a queue
-	
-	//doens't matter if this one is priv or pub
+
 	/**
 	 * A player is created at the start of a game with just an initial place.
 	 * @param initialPlace - where do we start?
@@ -60,9 +56,8 @@ public class Player {
 	 */
 	public boolean hasBeenHere() {
 		return this.visited.contains(this.place);
-		//pretend player thinks has been everywhere
-	} //for visited = coded before mode ,do to moveto; as move to new place as to visited
-	//boolean bc want to use in if s and pub to do in other classes 
+		
+	} 
 
 }
 

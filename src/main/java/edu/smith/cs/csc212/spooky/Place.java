@@ -27,10 +27,8 @@ public class Place {
 	/**
 	 * Whether reaching this place ends the game.
 	 */
-	private boolean terminal; //not passed to "constructor" spookymansion
-	//not visible outside file so don't have to do (..true, true) thing, just terminal thing so easier to read
+	private boolean terminal; 
 	
-	//public String action = words.get(0).toLowerCase().trim();
 	/**
 	 * Internal only constructor for Place. Use {@link #create(String, String)} or {@link #terminal(String, String)} instead.
 	 * @param id - the internal id of this place.
@@ -89,18 +87,16 @@ public class Place {
 				visible.add(e); //then add to the "visible" list of exists
 			}
 		}
-		return visible; //return the list of "visible" exists
+		return visible; 
 	}
 	/**
 	 *Looks through the list of exits and calls search().
 	 */
 	
 	public void searchAllExits() {
-		//if (InteractiveFiction.runGame().action.equals("search")) {  //word = trigger
 			System.out.println("You look around for any other exits you could go through.");
 			for (Exit t: this.exits) {
 				t.search();
-				//System.out.println(t);
 				continue;
 			}
 		}
@@ -162,8 +158,8 @@ public class Place {
 	 */
 	
 	public boolean equals(Object other) {
-		if (other instanceof Place) { //if it's a place as well
-			return this.id.equals(((Place) other).id); //make the id the same!
+		if (other instanceof Place) { 
+			return this.id.equals(((Place) other).id); 
 		}
 		return false;
 	}

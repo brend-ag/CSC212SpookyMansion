@@ -21,13 +21,11 @@ public class SpookyGraveyard implements GameWorld {
 				Place.create("entranceGraveyard", "You mysteriously awaken in seems to be a desolate graveyard. \n" +
 		" Barely seeing through the heavy fog and formidable darkness, you notice a tall gate behind you is closed shut. Definitely too tall to climb. It's length also seems neverending.  \n"
 						+ "Guess the only direction to go is forward."));
-			//
+			
 		entranceGraveyard.addExit(new Exit("altar tomb", "Wander to your right.")); 
 		entranceGraveyard.addExit(new Exit("gravestone", "Walk forward."));
 		entranceGraveyard.addExit(new Exit("family plot", "Head towards your left. "));
-	
 
-		//String EMOJI_SKULL = "\uD83D\uDC80"; //oo
 
 		Place altarTomb = insert(
 				Place.create("altar tomb", "You walk to what appears to be an altar tomb. \n" + "It is decorated with detailed drawings too distrubing to describe.\n"
@@ -63,13 +61,11 @@ public class SpookyGraveyard implements GameWorld {
 		gravestone.addExit(new Exit("darkness0", "Continue forward past the gravestone."));
 		gravestone.addExit(new Exit("entranceGraveyard", "Go back."));
 
-		//Place advice = insert(Place.terminal("advice", ""));
 		
 		int darknessDepth = 3; //3 choices = 3 for depth
 		int lastDarkPart = darknessDepth - 1; //so that when go back = knows how far you have to go (self)
 		int darknessVisited = 0;
 		for (int i = 0; i < darknessDepth; i++) { 
-			//String stringH = "This is a very long hallway.";
 			Place darkness = insert(Place.create("darkness" + i, "Somehow, the darkness seems to intensify. You start to feel as if some ominous force surrounds you."));
 					//"This is a very long hallway."));
 			if (i == 0) { //for loop w i==0 like constructor (so 1st hallway connects w secretrm
@@ -120,13 +116,8 @@ public class SpookyGraveyard implements GameWorld {
 				+ "Using the bit of light you have, you read that you are near an exit that leads out the graveyard.\n"
 				+"Finally. A means to get back home."));
 	
-		
-		
-
-
-
 		// Make sure your graph makes sense!
-		checkAllExitsGoSomewhereG();  //checks that exits exist! 
+	//	checkAllExitsGoSomewhereG();  //checks that exits exist! 
 	}
 
 	/**

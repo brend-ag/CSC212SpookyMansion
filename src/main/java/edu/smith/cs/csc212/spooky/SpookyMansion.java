@@ -102,27 +102,21 @@ public class SpookyMansion implements GameWorld { //child of gameworld
 		int hallwayDepth = 3; //3 choices = 3 for depth
 		int lastHallwayPart = hallwayDepth - 1; //so that when go back = knows how far you have to go (self)
 		int hallwayVisited = 0;
+		
 		for (int i = 0; i < hallwayDepth; i++) { 
-			//String stringH = "This is a very long hallway.";
 			Place hallwayPart = insert(Place.create("hallway" + i, "This is a very long hallway."));
-					//"This is a very long hallway."));
+			
 			if (i == 0) { //for loop w i==0 like constructor (so 1st hallway connects w secretrm
 				hallwayPart.addExit(new Exit("secretRoom", "Go back."));
 			} else {
 				hallwayPart.addExit(new Exit("hallway" + (i - 1), "Go back."));
 			}
 			if (i != lastHallwayPart) {
-//				stringH = "left, mysterious nummm";
-//				Place hallwayPartNum = insert(Place.create("hallway" + i, stringH));
-//				if(i==0) {
-//					hallwayPart.addExit(new Exit("hallway" + (i + 1), "Go forward."));
-//				}
-//				else {
 					hallwayPart.addExit(new Exit("hallway" + (i + 1), 
 						"To your left, a mysterious " + hallwayVisited  + 
 						" appears to be scratched on the wall. " 
 						+ "Go forward."));
-				//}
+			
 				hallwayVisited+=1;
 				
 			} else {
@@ -165,14 +159,10 @@ public class SpookyMansion implements GameWorld { //child of gameworld
 		labyrinth3.addExit(new Exit("labyrinth0", "Go North."));
 		labyrinth3.addExit(new Exit("entranceHall", "Go East."));
 		labyrinth3.addExit(new Exit("labyrinth0", "Go South."));
-		//labyrinth3.addExit(new Exit("entranceHall", "Go South."));	
 		labyrinth3.addExit(new Exit("labyrinth0", "Go West."));
 		
 
-
-
-		// Make sure your graph makes sense!
-		checkAllExitsGoSomewhere();  //checks that exits exist! 
+	//	checkAllExitsGoSomewhere();  //checks that exits exist! 
 	}
 
 	/**
