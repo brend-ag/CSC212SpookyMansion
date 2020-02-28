@@ -14,7 +14,7 @@ public class Place {
 	 * This is a list of places we can get to from this place.
 	 */
 	private List<Exit> exits; //not exit from mansion, but fr current place!
-	private List<SecretExit> secretExits;
+	private List<String> items = new ArrayList<>();
 	/**
 	 * This is the identifier of the place.
 	 */
@@ -41,7 +41,6 @@ public class Place {
 		this.id = id;
 		this.description = description;
 		this.exits = new ArrayList<>();
-		this.secretExits = new ArrayList<>();
 		this.terminal = terminal; //the // in my map!
 	}
 	
@@ -52,9 +51,7 @@ public class Place {
 	public void addExit(Exit exit) {
 		this.exits.add(exit);
 	}
-	public void addSecretExit(SecretExit secretExits) {
-		this.secretExits.add(secretExits);
-	}
+
 	/**
 	 * For gameplay, whether this place ends the game.
 	 * @return true if this is the end.
@@ -94,27 +91,36 @@ public class Place {
 		}
 		return visible; //return the list of "visible" exists
 	}
-	public List<SecretExit> getInvisibleExits() {
-		List<SecretExit> hidden = new ArrayList<>();
-		for (SecretExit  t: this.secretExits) {
-			//loops through each exit in the list exit
-			if (t.isSecret()) {
-				hidden.add(t);
-				
-			}
-		}
-		return hidden; 
-	} 
+	/**
+	 *Looks through the list of exits and calls search().
+	 */
+	
 	public void searchAllExits() {
 		//if (InteractiveFiction.runGame().action.equals("search")) {  //word = trigger
 			System.out.println("You look around for any other exits you could go through.");
-			for (Exit t: this.secretExits) {
+			for (Exit t: this.exits) {
 				t.search();
 				//System.out.println(t);
 				continue;
 			}
 		}
-	
+	//adds items to the list of strings
+	public void addItem(String item) {
+		this.items.add(item);
+	}
+	/**
+	 * Looks at the size of String list items and prints any items it has.
+	 */
+	public void stuff(){
+		if (items.size()>=1) {
+			for(String s: this.items) {
+				System.out.println(s);
+			}
+		}
+		else {
+			System.out.println("You have nothing on you.");
+		}
+	}
 	/**
 	 * This is a terminal location (good or bad).
 	 * @param id - this is the id of the place (for creating {@link Exit} objects that go here).

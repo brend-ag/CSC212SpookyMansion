@@ -32,12 +32,12 @@ public class InteractiveFiction {
 			//Place place = new Place();
 			System.out.println();
 			System.out.println("... --- ...");
-			System.out.println("Type 'h' for help on how to play and how to quit the game!");
+			//System.out.println("Type 'h' for help on how to play and how to quit the game!");
 			//do if place statement so that doesn't appear on every screen
 			
 			System.out.println(here.getDescription());
 			if(player.hasBeenHere() ) { //need to know where currently are and where been
-				System.out.println("Hm.....This place feels familiar...");
+				System.out.println("Hm...Somehow, this place feels familiar...");
 			} //make stand out w >>> or smth 
 			// Game over after print!
 			player.rememberThisPlace(); //adding to set
@@ -53,12 +53,9 @@ public class InteractiveFiction {
 				Exit e = exits.get(i);
 				System.out.println(" "+i+". " + e.getDescription()); //number.desc and goes to that exit
 			} 
-			List<SecretExit> secretExits = here.getInvisibleExits(); //make sec class can't see unless search
-
-			for (int i=0; i<secretExits.size(); i++) {
-				SecretExit e = secretExits.get(i);
-				System.out.println(" "+(i+2)+". " + e.getDescription()); //number.desc and goes to that exit
-			} 
+			//make sec class can't see unless search
+			
+			
 
 			// Figure out what the user wants to do, for now, only "quit" is special.
 			List<String> words = input.getUserWords("?"); //gives back words and splits for punct etc
@@ -84,7 +81,8 @@ public class InteractiveFiction {
 			}
 			if (action.equals("h")) {  //word = trigger
 				System.out.println("To navigate the mansion, press the number of the room or area you want to enter.\n" 
-					+ "If you want to quit the game, press 'q'.");
+					+ "If you want to quit the game, press 'q'."
+					+ "If you want to see your items, type 'items'." );
 				continue;
 			}
 //			if (action.equals("graveyard")) {  //word = trigger
@@ -92,6 +90,11 @@ public class InteractiveFiction {
 //				runGame(input, game);
 //				continue;
 //			}
+			
+			if (action.equals("items")){
+				here.stuff();
+			}
+			//searches through the exits if the user types search
 			if (action.equals("search")) {
 				here.searchAllExits();
 				continue;
@@ -116,7 +119,7 @@ public class InteractiveFiction {
 			if (destination.canOpen(player)) { //if player cn open it move there
 				player.moveTo(destination.getTarget());
 			} else {
-				// TODO: some kind of message about it being locked?
+				System.out.println("This is locked right now. Maybe you can open it with a key?");
 			}
 		} //while loop of game
 		//rungame returns where player got to
@@ -136,8 +139,9 @@ public class InteractiveFiction {
 		GameWorld game = new SpookyMansion();
 		//GameWorld game2 = new SpookyGraveyard();
 		// Actually play the game.
-		runGame(input, game);
 		
+		//runGame(input, game);
+		runGame(input, game);
 
 		// You get here by typing "quit" or by reaching a Terminal Place.
 		System.out.println("\n\n>>> GAME OVER <<<");

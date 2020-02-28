@@ -10,7 +10,7 @@ public class SpookyGraveyard implements GameWorld {
 	 */
 	@Override
 	public String getStart() {
-		return "entranceHall";
+		return "entranceGraveyard";
 	}
 
 	/**

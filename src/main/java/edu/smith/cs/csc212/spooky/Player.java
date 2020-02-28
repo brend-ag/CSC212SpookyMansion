@@ -1,5 +1,7 @@
 package edu.smith.cs.csc212.spooky;
 
+import java.util.List;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +19,7 @@ public class Player {
 	 */
 	private String place;
 	private Set<String> visited = new HashSet<>();
+	private List<String> items = new ArrayList<>();
 //	private Set<String> visitedHallway = new HasSet<>
 	//set = set of id's the player has seen before
 	//set (self) bc UNIQUE! 
@@ -51,7 +54,10 @@ public class Player {
 	public void rememberThisPlace() {
 		this.visited.add(place); 
 	}
-
+	/*
+	 * boolean tracks if the current location is in the hashset of the visited places
+	 *of the player
+	 */
 	public boolean hasBeenHere() {
 		return this.visited.contains(this.place);
 		//pretend player thinks has been everywhere

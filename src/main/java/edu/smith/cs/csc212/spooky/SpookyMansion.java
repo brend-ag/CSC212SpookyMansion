@@ -1,6 +1,9 @@
+//Lab partner: Aneliz Vargas
 package edu.smith.cs.csc212.spooky;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -10,6 +13,8 @@ import java.util.Map;
  */
 public class SpookyMansion implements GameWorld { //child of gameworld
 	private Map<String, Place> places = new HashMap<>();
+	
+	
 	//map of all places w string 
 	/**
 	 * Where should the player start?
@@ -18,7 +23,7 @@ public class SpookyMansion implements GameWorld { //child of gameworld
 	public String getStart() {
 		return "entranceHall";
 	}
-
+	
 	/**
 	 * This constructor builds our SpookyMansion game.
 	 */
@@ -26,13 +31,14 @@ public class SpookyMansion implements GameWorld { //child of gameworld
 		Place entranceHall = insert( //inserting into map: new places and exits
 				Place.create("entranceHall", "You are in the grand entrance hall of a large building.\n"
 						+ "The front door is locked. How did you get here?"));
-			//
+			
 		entranceHall.addExit(new Exit("basement", "There are stairs leading down.")); //every exit = leads somewhere (all the ids/0,1,2,3 to user etc)
 		entranceHall.addExit(new Exit("attic", "There are stairs leading up."));
 		entranceHall.addExit(new Exit("kitchen", "There is a red door."));
 		entranceHall.addExit(new Exit("closet", "There is a brown door."));
-
-		String EMOJI_SKULL = "\uD83D\uDC80"; //oo
+		entranceHall.addItem("juice");
+		
+		String EMOJI_SKULL = "\uD83D\uDC80"; 
 		
 		//CLOSET
 		Place closet = insert(Place.create("closet", "On the wall is scratched a series of letters and a skull icon ("+EMOJI_SKULL+").\n"
@@ -45,8 +51,9 @@ public class SpookyMansion implements GameWorld { //child of gameworld
 						+ "You get the sense a secret is nearby, but you only see the stairs you came from."));
 		basement.addExit(new Exit("entranceHall", "There are stairs leading up."));
 		basement.addExit(new Exit("fallingPit", "There appears to be a pit in the center of the room you could climb into..."));
-		basement.addSecretExit(new SecretExit("secretRoom", "To your right, you see a door that is giving off ominous energy. Enter?"));
-
+		basement.addExit(new SecretExit("secretRoom", "To your right, you see a door that is giving off ominous energy. Enter?"));
+		//secretexit created from basement to secret room
+		
 		Place fallingPit = insert(
 				Place.create("fallingPit", "I don't know what you were thinking..."));
 		fallingPit.addExit(new Exit("labyrinth0", "Keep falling."));
@@ -90,7 +97,7 @@ public class SpookyMansion implements GameWorld { //child of gameworld
 		Place secretRoom = insert(Place.create("secretRoom", "You have found the secret room."));
 		secretRoom.addExit(new Exit("labyrinth0", "There is door with a skull on it... "+EMOJI_SKULL));
 		secretRoom.addExit(new Exit("hallway0", "There is a long hallway."));
-
+		secretRoom.addExit(new LockedExit("hallway0", "There is a door."));
 		
 		int hallwayDepth = 3; //3 choices = 3 for depth
 		int lastHallwayPart = hallwayDepth - 1; //so that when go back = knows how far you have to go (self)
@@ -180,8 +187,9 @@ public class SpookyMansion implements GameWorld { //child of gameworld
 		return p;
 	}
 
+
 	/**
-	 * I like this method for checking to make sure that my graph makes sense!
+	 * method for checking to make sure that my graph makes sense!
 	 */
 	private void checkAllExitsGoSomewhere() {
 		boolean missing = false;
